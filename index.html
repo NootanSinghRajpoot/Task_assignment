@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue.js Todo List</title>
+  <link rel="stylesheet" href="index.css">
+    
+</head>
+<body>
+
+<div id="app">
+  <h1>Vue.js Todo List</h1>
+
+  <!-- Input form for adding new tasks -->
+  <div>
+    <input v-model="newTask" @keyup.enter="addTask" placeholder="Add a new task">
+    <button @click="addTask">Add</button>
+  </div>
+
+  <!-- List of open tasks -->
+  <div>
+    <h2>Open Tasks</h2>
+    <ul>
+      <li v-for="(task, index) in openTasks" :key="index">
+        <div>
+          <span v-if="!task.editing">{{ task.text }} - Created on {{ task.date }}</span>
+          <div v-if="task.editing">
+            <input class="update-input" v-model="task.updatedText" @keyup.enter="updateTask(index)" placeholder="Edit task text">
+            <button class="update-button" @click="updateTask(index)">Update</button>
+          </div>
+        </div>
+        <div>
+          <button @click="startEditing(index)" v-if="!task.editing">Edit</button>
+          <input type="checkbox" @change="completeTask(index)">
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- List of completed tasks -->
+  <div>
+    <h2>Completed Tasks</h2>
+    <ul>
+      <li v-for="(task, index) in completedTasks" :key="index">
+        {{ task.text }} - Completed on {{ task.date }}
+      </li>
+    </ul>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      newTask: '',
+      openTasks: [],
+      completedTasks: [],
+    },
+    mounted() {
+      // Load tasks from localStorage when the component is mounted
+      this.loadTasks();
+    },
+    methods: {
+      addTask() {
+        if (this.newTask.trim() !== '') {
+          const newTaskObj = {
+            text: this.newTask,
+            date: new Date().toLocaleString(),
+            editing: false,
+            updatedText: '',
+          };
+          this.openTasks.push(newTaskObj);
+          this.newTask = '';
+          // Save tasks to localStorage
+          this.saveTasks();
+        }
+      },
+      completeTask(index) {
+        const completedTask = this.openTasks.splice(index, 1)[0];
+        completedTask.date = new Date().toLocaleString();
+        this.completedTasks.push(completedTask);
+        // Save tasks to localStorage
+        this.saveTasks();
+      },
+      startEditing(index) {
+        // Set the task to editing mode
+        this.openTasks[index].editing = true;
+        this.openTasks[index].updatedText = this.openTasks[index].text;
+      },
+      updateTask(index) {
+        // Update the task text and exit editing mode
+        this.openTasks[index].text = this.openTasks[index].updatedText;
+        this.openTasks[index].editing = false;
+        // Save tasks to localStorage
+        this.saveTasks();
+      },
+      loadTasks() {
+        // Retrieve tasks from localStorage
+        const savedTasks = JSON.parse(localStorage.getItem('tasks'));
+        if (savedTasks) {
+          this.openTasks = savedTasks.openTasks;
+          this.completedTasks = savedTasks.completedTasks;
+        }
+      },
+      saveTasks() {
+        // Save tasks to localStorage
+        const tasks = {
+          openTasks: this.openTasks,
+          completedTasks: this.completedTasks,
+        };
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+      },
+    },
+  });
+</script>
+
+</body>
+</html>

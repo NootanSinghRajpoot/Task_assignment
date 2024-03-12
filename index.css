@@ -1,0 +1,117 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f8f8;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  #app {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    width: 350px;
+    overflow: hidden;
+  }
+
+  h1 {
+    text-align: center;
+    color: #4caf50;
+    margin-bottom: 20px;
+  }
+
+  input {
+    width: 70%;
+    padding: 10px;
+    margin-right: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+
+  input:focus {
+    border-color: #4caf50;
+  }
+
+  button {
+    width: 30%;
+    padding: 10px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  button:hover {
+    background-color: #45a049;
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    max-height: 250px;
+    overflow-y: auto;
+  }
+
+  li {
+    margin: 15px 0;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f9f9f9;
+    transition: transform 0.3s ease;
+  }
+
+  li:hover {
+    transform: scale(1.03);
+  }
+
+  input[type="checkbox"] {
+    margin-left: 8px;
+    cursor: pointer;
+  }
+
+  .update-input {
+    width: 60%;
+    padding: 8px;
+    margin-right: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    outline: none;
+  }
+
+  .update-button {
+    width: 30%;
+    padding: 8px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .update-button:hover {
+    background-color: #45a049;
+  }
+
+  h2 {
+    margin-top: 20px;
+    color: #333;
+  }
+
+ul {
+    max-height: 200px; /* Set a maximum height for the list to enable scrolling */
+    overflow-y: auto; /* Enable vertical scrolling when the list exceeds the maximum height */
+  }
+  
